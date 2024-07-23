@@ -3,9 +3,6 @@
 
 O CineTrack é um aplicativo para rastrear e gerenciar informações sobre filmes, desenvolvido em Java com o framework Spring Boot. Além disso, utilizamos HTML e CSS para criar a interface do usuário. Com o CineTrack, os usuários podem acompanhar os filmes que já assistiram, adicionar filmes à sua lista de desejos e manter um registro organizado de suas experiências cinematográficas.
 
-
-
-
 ## Funcionalidades 🎯
 #### 1- Catálogo de Filmes:
 - O CineTrack oferece um catálogo completo de filmes;
