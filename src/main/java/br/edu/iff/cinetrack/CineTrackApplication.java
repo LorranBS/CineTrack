@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CinetrackApplication {
+public class CineTrackApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CinetrackApplication.class, args);
+		SpringApplication.run(CineTrackApplication.class, args);
 	}
 
 }
