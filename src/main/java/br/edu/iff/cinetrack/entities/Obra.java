@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Obra {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -20,6 +22,9 @@ public class Obra {
     private String diretor;
     private String tipo;
 
-    @ManyToMany(mappedBy = "listaParaAssistir")
-    private List<Usuario> operadores;
+    @OneToMany(mappedBy = "obra")
+    private List<DiarioItem> diarioItems;
+
+    @ManyToMany(mappedBy = "obras")
+    private List<ListaPersonalizada> listasPersonalizadas;
 }

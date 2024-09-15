@@ -6,12 +6,7 @@ import br.edu.iff.cinetrack.repositories.PessoaRepository;
 public class PessoaService {
     private PessoaRepository repository;
 
-    public Pessoa findByNome (String Nome){
-        try {
-            repository.findByNome(Nome);
-        } catch (Exception e) {
-            throw new RuntimeException("Usuario não localizado");
-        }
-        return repository.findByNome(Nome);
+    public Pessoa buscarPorNome (String Nome){
+        return repository.buscarPorNome(Nome).orElseThrow(() -> new RuntimeException("Usuario não localizado"));
     }
 }
