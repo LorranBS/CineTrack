@@ -15,7 +15,7 @@ import java.util.UUID;
 public class ListaPersonalizadaService {
 
     private final ListaPersonalizadaRepository listaPersonalizadaRepository;
-    private final UsuarioRepository usuarioRepository; // Adicione o repositório de Usuario
+    private final UsuarioRepository usuarioRepository;
 
     @Autowired
     public ListaPersonalizadaService(ListaPersonalizadaRepository listaPersonalizadaRepository, UsuarioRepository usuarioRepository) {
@@ -24,7 +24,7 @@ public class ListaPersonalizadaService {
     }
 
     public List<ListaPersonalizada> buscarPeloCriador(UUID criadorId) {
-        return listaPersonalizadaRepository.findByCriadorId(criadorId);
+        return listaPersonalizadaRepository.buscarPorCriadorId(criadorId);
     }
 
     public ListaPersonalizada criarListaPersonalizada(UUID criadorId, ListaPersonalizada listaPersonalizada) {

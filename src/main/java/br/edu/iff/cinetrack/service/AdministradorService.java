@@ -14,7 +14,7 @@ public class AdministradorService {
 
     private final AdministradorRepository administradorRepository;
     private final UsuarioService usuarioService;
-    private final ObraService obraService; // Adicione o ObraService
+    private final ObraService obraService;
 
     @Autowired
     public AdministradorService(AdministradorRepository administradorRepository, UsuarioService usuarioService, ObraService obraService) {

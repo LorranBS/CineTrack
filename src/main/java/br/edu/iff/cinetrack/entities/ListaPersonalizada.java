@@ -1,6 +1,9 @@
 package br.edu.iff.cinetrack.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -17,6 +20,8 @@ public class ListaPersonalizada {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @NotBlank(message = "O título da lista é obrigatório")
+    @Size(max = 100, message = "O título não pode ter mais de 100 caracteres")
     @Column(nullable = false)
     private String nome;
 
@@ -25,6 +30,7 @@ public class ListaPersonalizada {
     private String imagemCapa;
 
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario criador;
 

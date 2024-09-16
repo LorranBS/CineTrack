@@ -1,6 +1,7 @@
 package br.edu.iff.cinetrack.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.List;
@@ -16,10 +17,19 @@ public class Obra {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @NotBlank(message = "O título é obrigatório")
     private String titulo;
+
+    @NotBlank(message = "O gênero é obrigatório")
     private String genero;
+
+    @NotBlank(message = "O ano de lançamento é obrigatório")
     private int ano;
+
+    @NotBlank(message = "O diretor é obrigatório")
     private String diretor;
+
+    @NotBlank(message = "O tipo (filme ou série) é obrigatório")
     private String tipo;
 
     @OneToMany(mappedBy = "obra")

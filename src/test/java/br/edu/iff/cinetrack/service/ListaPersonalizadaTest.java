@@ -123,7 +123,7 @@ public class ListaPersonalizadaTest {
         List<ListaPersonalizada> listas = new ArrayList<>();
         listas.add(lista1);
         listas.add(lista2);
-        when(listaPersonalizadaRepository.findByCriadorId(criadorId)).thenReturn(listas);
+        when(listaPersonalizadaRepository.buscarPorCriadorId(criadorId)).thenReturn(listas);
 
         // Act
         List<ListaPersonalizada> result = listaPersonalizadaService.buscarPeloCriador(criadorId);
@@ -131,7 +131,7 @@ public class ListaPersonalizadaTest {
         // Assert
         assertNotNull(result, "A lista personalizada deve ser encontrada");
         assertEquals(2, result.size(), "A lista personalizada deve conter 2 itens");
-        verify(listaPersonalizadaRepository, times(1)).findByCriadorId(criadorId);
+        verify(listaPersonalizadaRepository, times(1)).buscarPorCriadorId(criadorId);
     }
 
     @Test
