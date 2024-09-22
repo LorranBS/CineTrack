@@ -1,16 +1,25 @@
 package br.edu.iff.cinetrack.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+
 import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class Diario {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class DiarioItem {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Size(min=1, max=10)
+    @Positive
     private float avaliacao;
 
     @Temporal(TemporalType.DATE)
@@ -19,10 +28,10 @@ public class Diario {
     private String comentario;
 
     @ManyToOne
-    @JoinColumn(name = "operador_id")
-    private Usuario operador;
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "obra_id")
+    @JoinColumn(name = "obra_id", nullable = false)
     private Obra obra;
 }

@@ -8,14 +8,20 @@ O CineTrack é um aplicativo para rastrear e gerenciar informações sobre filme
 - O CineTrack oferece um catálogo completo de filmes;
 - Os usuários podem pesquisar por título, gênero, ano de lançamento e muito mais;
 - Cada filme no catálogo possui detalhes, como sinopse, elenco, diretor e classificação.
-#### 2- Registro de Filmes Assistidos:
+
+#### 2- Registro de Filmes Assistidos (Diário):
 Os usuários podem adicionar filmes à sua lista de “Filmes Assistidos”.
 Para cada filme, eles podem inserir informações como:
 - Título do filme;
 - Data em que assistiram;
 - Classificação pessoal (Estrelas);
 - Comentários ou observações.
-#### 3- Lista de Desejos
+
+#### 3- Listas Personalizadas
+- Os usuários podem criar uma lista de filmes e séries com títulos específicos
+- Exemplo: Filmes que eu mais gosto
+
+#### 4- Lista de Desejos (Para ser implementado)
 - Os usuários podem criar uma lista de filmes que desejam assistir no futuro;
 - Para cada filme na lista de desejos, eles podem adicionar notas ou razões pelas quais estão interessados nele.
 
