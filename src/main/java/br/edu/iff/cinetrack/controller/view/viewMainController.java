@@ -13,5 +13,11 @@ public class viewMainController {
     public String homeUnderConstruction() {
         return "Página em construção! Volte em breve para conferir as novidades.";
     }
+
+    @GetMapping("/error")
+    @ResponseBody
+    public String errorPage() throws Exception {
+        throw new Exception();
+    }
     
 }
