@@ -4,6 +4,7 @@ import br.edu.iff.cinetrack.entities.DiarioItem;
 import br.edu.iff.cinetrack.entities.ListaPersonalizada;
 import br.edu.iff.cinetrack.entities.Obra;
 import br.edu.iff.cinetrack.entities.Usuario;
+import br.edu.iff.cinetrack.exceptions.UserNotFoundException;
 import br.edu.iff.cinetrack.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class UsuarioService {
     }
 
     public void deletarUsuario(UUID id) {
+        
         if (!usuarioRepository.existsById(id)) {
             throw new RuntimeException("Usuário não localizado para o ID: " + id);
         }
@@ -36,7 +38,7 @@ public class UsuarioService {
 
     public Usuario buscarPorId(UUID id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não localizado para o ID: " + id));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     public Usuario buscarPorNome(String nome) {
