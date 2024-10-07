@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/v1/api/obras")
+@RequestMapping("/api/v1/obra")
 public class ObraController {
 
     private final ObraService obraService;
