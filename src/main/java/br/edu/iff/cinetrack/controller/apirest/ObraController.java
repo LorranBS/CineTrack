@@ -13,6 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/v1/obra")
 public class ObraController {
@@ -30,9 +38,11 @@ public class ObraController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos ou obra nula")
     })
     @PostMapping
-    public ResponseEntity<Obra> criarObra(@RequestBody Obra obra) {
+    public ResponseEntity<EntityModel<Obra>> criarObra(@RequestBody Obra obra) {
         Obra novaObra = obraService.criarObra(obra);
-        return new ResponseEntity<>(novaObra, HttpStatus.CREATED);
+        EntityModel<Obra> resource = EntityModel.of(novaObra);
+        resource.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).buscarPorTitulo(novaObra.getTitulo())).withSelfRel());
+        return new ResponseEntity<>(resource, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Remove uma obra pelo ID")
@@ -52,9 +62,16 @@ public class ObraController {
             @ApiResponse(responseCode = "404", description = "Nenhuma obra encontrada")
     })
     @GetMapping
-    public ResponseEntity<List<Obra>> listarObras() {
+    public ResponseEntity<CollectionModel<EntityModel<Obra>>> listarObras() {
         List<Obra> obras = obraService.listarObras();
-        return new ResponseEntity<>(obras, HttpStatus.OK);
+        List<EntityModel<Obra>> recursos = obras.stream()
+                .map(obra -> EntityModel.of(obra,
+                        WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).buscarPorTitulo(obra.getTitulo())).withSelfRel(),
+                        WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).listarObras()).withRel("all")))
+                .collect(Collectors.toList());
+        CollectionModel<EntityModel<Obra>> collectionModel = CollectionModel.of(recursos);
+        collectionModel.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).listarObras()).withSelfRel());
+        return new ResponseEntity<>(collectionModel, HttpStatus.OK);
     }
 
     @Operation(summary = "Busca obras por gênero")
@@ -63,9 +80,16 @@ public class ObraController {
             @ApiResponse(responseCode = "404", description = "Nenhuma obra encontrada para o gênero")
     })
     @GetMapping("/genero/{genero}")
-    public ResponseEntity<List<Obra>> buscarPorGenero(@PathVariable String genero) {
+    public ResponseEntity<CollectionModel<EntityModel<Obra>>> buscarPorGenero(@PathVariable String genero) {
         List<Obra> obras = obraService.buscarPorGenero(genero);
-        return new ResponseEntity<>(obras, HttpStatus.OK);
+        List<EntityModel<Obra>> recursos = obras.stream()
+                .map(obra -> EntityModel.of(obra,
+                        WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).buscarPorTitulo(obra.getTitulo())).withSelfRel(),
+                        WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).buscarPorGenero(genero)).withRel("all")))
+                .collect(Collectors.toList());
+        CollectionModel<EntityModel<Obra>> collectionModel = CollectionModel.of(recursos);
+        collectionModel.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).buscarPorGenero(genero)).withSelfRel());
+        return new ResponseEntity<>(collectionModel, HttpStatus.OK);
     }
 
     @Operation(summary = "Busca obra por título")
@@ -74,9 +98,11 @@ public class ObraController {
             @ApiResponse(responseCode = "404", description = "Obra não encontrada para o título")
     })
     @GetMapping("/titulo/{titulo}")
-    public ResponseEntity<Obra> buscarPorTitulo(@PathVariable String titulo) {
+    public ResponseEntity<EntityModel<Obra>> buscarPorTitulo(@PathVariable String titulo) {
         Obra obra = obraService.buscarPorTitulo(titulo);
-        return new ResponseEntity<>(obra, HttpStatus.OK);
+        EntityModel<Obra> resource = EntityModel.of(obra);
+        resource.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).buscarPorTitulo(titulo)).withSelfRel());
+        return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
     @Operation(summary = "Busca obras por diretor")
@@ -85,8 +111,16 @@ public class ObraController {
             @ApiResponse(responseCode = "404", description = "Nenhuma obra encontrada para o diretor")
     })
     @GetMapping("/diretor/{diretor}")
-    public ResponseEntity<List<Obra>> buscarPorDiretor(@PathVariable String diretor) {
+    public ResponseEntity<CollectionModel<EntityModel<Obra>>> buscarPorDiretor(@PathVariable String diretor) {
         List<Obra> obras = obraService.buscarPorDiretor(diretor);
-        return new ResponseEntity<>(obras, HttpStatus.OK);
+        List<EntityModel<Obra>> recursos = obras.stream()
+                .map(obra -> EntityModel.of(obra,
+                        WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).buscarPorTitulo(obra.getTitulo())).withSelfRel(),
+                        WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).buscarPorDiretor(diretor)).withRel("all")))
+                .collect(Collectors.toList());
+        CollectionModel<EntityModel<Obra>> collectionModel = CollectionModel.of(recursos);
+        collectionModel.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).buscarPorDiretor(diretor)).withSelfRel());
+        return new ResponseEntity<>(collectionModel, HttpStatus.OK);
     }
 }
+
