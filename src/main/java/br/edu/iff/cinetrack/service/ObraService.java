@@ -2,10 +2,12 @@ package br.edu.iff.cinetrack.service;
 
 import br.edu.iff.cinetrack.entities.Obra;
 import br.edu.iff.cinetrack.repositories.ObraRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -35,6 +37,25 @@ public class ObraService {
         } catch (EmptyResultDataAccessException e) {
             throw new RuntimeException("Obra não localizada para o ID: " + obraId);
         }
+    }
+
+    public Obra atualizarObra(UUID obraAntiga, Obra obra) {
+        if (obra == null || obra.getId() == null) {
+            throw new IllegalArgumentException("A obra ou o ID da obra não pode ser nulo.");
+        }
+
+        Optional<Obra> obraExistenteOptional = obraRepository.findById(obraAntiga);
+
+        if (obraExistenteOptional.isPresent()) {
+            Obra obraExistente = obraExistenteOptional.get();
+
+            obraExistente.setTitulo(obra.getTitulo());
+
+            obraRepository.save(obraExistente);
+        } else {
+            throw new EntityNotFoundException("Obra não encontrada com o ID: " + obra.getId());
+        }
+        return obra;
     }
 
     public List<Obra> listarObras() {

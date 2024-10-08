@@ -56,6 +56,24 @@ public class ObraController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Atualiza uma obra existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Obra atualizada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Obra não encontrada"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos ou obra nula")
+    })
+    @PutMapping("/{obraId}")
+    public ResponseEntity<EntityModel<Obra>> atualizarObra(@PathVariable UUID obraId, @RequestBody Obra obraAtualizada) {
+        Obra obra = obraService.atualizarObra(obraId, obraAtualizada);
+
+        EntityModel<Obra> resource = EntityModel.of(obra);
+        resource.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).buscarPorTitulo(obra.getTitulo())).withSelfRel());
+        resource.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ObraController.class).listarObras()).withRel("all"));
+
+        return new ResponseEntity<>(resource, HttpStatus.OK);
+    }
+
+
     @Operation(summary = "Lista todas as obras")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Obras listadas com sucesso"),
