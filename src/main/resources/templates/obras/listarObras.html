@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Listagem de Obras</title>
+</head>
+<body>
+
+<h1>Listar Obras</h1>
+
+<div>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Gênero</th>
+            <th>Ano de Lançamento</th>
+            <th>Diretor</th>
+            <th>Tipo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Itera sobre a lista de obras usando Thymeleaf -->
+        <tr th:each="obra : ${obras}">
+            <td th:text="${obra.titulo}"></td>
+            <td th:text="${obra.genero}"></td>
+            <td th:text="${obra.ano}"></td>
+            <td th:text="${obra.diretor}"></td>
+            <td th:text="${obra.tipo}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Mensagem caso não existam obras -->
+<div th:if="${#lists.isEmpty(obras)}">
+    <p>Nenhuma obra encontrada.</p>
+</div>
+
+</body>
+</html>
