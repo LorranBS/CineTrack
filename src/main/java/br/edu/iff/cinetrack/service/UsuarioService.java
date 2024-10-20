@@ -25,6 +25,10 @@ public class UsuarioService {
         this.listaPersonalizadaService = listaPersonalizadaService;
     }
 
+    public List<Usuario> buscarTodos() {
+        return usuarioRepository.findAll();
+    }
+
     public Usuario criarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }

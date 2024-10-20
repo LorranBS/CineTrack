@@ -35,23 +35,10 @@ public class ObraViewController {
         return "exibirObra";
     }
 
-    @GetMapping("/novo")
-    public String novaObraForm(Model model) {
-        model.addAttribute("obra", new Obra());
-        return "novaObra";
-    }
-
     @PostMapping
     public String criarObra(@ModelAttribute Obra obra) {
         obraService.criarObra(obra);
         return "redirect:/obras";
-    }
-
-    @GetMapping("/{id}/editar")
-    public String editarObraForm(@PathVariable UUID id, Model model) {
-        Obra obra = obraService.buscarPorTitulo(id.toString());
-        model.addAttribute("obra", obra);
-        return "editarObra";
     }
 
     @PostMapping("/{id}/atualizar")
