@@ -13,21 +13,24 @@
 </head>
 <body>
 
-<header>
+<!-- <header>
     <h1>Listagem de Obras</h1>
-</header>
+</header> -->
 
 <nav>
     <ul>
         <li><a href="#">Início</a></li>
-        <li><a href="#">Filmes</a></li>
-        <li><a href="#">Séries</a></li>
-        <li><a href="#">Sobre</a></li>
+        <li><a href="#">Assistir mais tarde</a></li>
+        <li><a href="#">Diário</a></li>
+        <li><a href="#">Usuários</a></li>
     </ul>
 </nav>
 
 <main>
-    <h2>Obras Disponíveis</h2>
+    <h2>Pesquise sobre um filme ou série</h2>
+    <form th:action="@{/buscar}" method="GET">
+        <input type="search" name="pesquisa" placeholder="Pesquise por um filme ou série...">
+    </form>
     <div>
         <table>
             <thead>

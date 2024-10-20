@@ -5,6 +5,16 @@ main {
     margin: 0 auto;
 }
 
+input[type="search"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #333;
+    border-radius: 20px;
+    width: 100%;
+    outline: none;
+    margin: 10px 0px 10px 0px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
