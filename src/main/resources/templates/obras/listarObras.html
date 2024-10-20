@@ -1,43 +1,64 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Listagem de Obras</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/nav.css}">
+    <link rel="stylesheet" th:href="@{/css/body.css}">
+    <link rel="stylesheet" th:href="@{/css/obras/listaObras.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
 </head>
 <body>
 
-<h1>Listar Obras</h1>
+<header>
+    <h1>Listagem de Obras</h1>
+</header>
 
-<div>
-    <table border="1">
-        <thead>
-        <tr>
-            <th>Título</th>
-            <th>Gênero</th>
-            <th>Ano de Lançamento</th>
-            <th>Diretor</th>
-            <th>Tipo</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Itera sobre a lista de obras usando Thymeleaf -->
-        <tr th:each="obra : ${obras}">
-            <td th:text="${obra.titulo}"></td>
-            <td th:text="${obra.genero}"></td>
-            <td th:text="${obra.ano}"></td>
-            <td th:text="${obra.diretor}"></td>
-            <td th:text="${obra.tipo}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<nav>
+    <ul>
+        <li><a href="#">Início</a></li>
+        <li><a href="#">Filmes</a></li>
+        <li><a href="#">Séries</a></li>
+        <li><a href="#">Sobre</a></li>
+    </ul>
+</nav>
 
-<!-- Mensagem caso não existam obras -->
-<div th:if="${#lists.isEmpty(obras)}">
-    <p>Nenhuma obra encontrada.</p>
-</div>
+<main>
+    <h2>Obras Disponíveis</h2>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Título</th>
+                <th>Gênero</th>
+                <th>Ano de Lançamento</th>
+                <th>Diretor</th>
+                <th>Tipo</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="obra : ${obras}">
+                <td th:text="${obra.titulo}"></td>
+                <td th:text="${obra.genero}"></td>
+                <td th:text="${obra.ano}"></td>
+                <td th:text="${obra.diretor}"></td>
+                <td th:text="${obra.tipo}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${#lists.isEmpty(obras)}">
+        <p>Nenhuma obra encontrada.</p>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Listagem de Obras. Todos os direitos reservados.</p>
+</footer>
 
 </body>
 </html>
