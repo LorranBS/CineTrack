@@ -1,0 +1,29 @@
+nav {
+    background-color: #fff;
+    padding: 15px;
+    border-bottom: 2px solid #F1F5F9;
+    
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: left;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: black;
+    background-color: #F1F5F9;
+    text-decoration: none;
+    padding: 5px 20px;
+    /* font-weight: bold; */
+    border-radius: 10px ;
+}
+
+nav ul li a:hover {
+    background-color: #dfe9f3;
+}

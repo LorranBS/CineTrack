@@ -2,6 +2,7 @@ package br.edu.iff.cinetrack.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class Obra {
     @NotBlank(message = "O gênero é obrigatório")
     private String genero;
 
-    @NotBlank(message = "O ano de lançamento é obrigatório")
+    @NotNull(message = "O ano de lançamento é obrigatório")
     private int ano;
 
     @NotBlank(message = "O diretor é obrigatório")
@@ -32,7 +33,7 @@ public class Obra {
     @NotBlank(message = "O tipo (filme ou série) é obrigatório")
     private String tipo;
 
-    @OneToMany(mappedBy = "obra")
+    @OneToMany(mappedBy = "obra", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DiarioItem> diarioItems;
 
     @ManyToMany(mappedBy = "obras")

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lista Usuários</title>
+    <link rel="stylesheet" th:href="@{/css/baseHtml/header.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/nav.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/body.css}">
+    <link rel="stylesheet" th:href="@{/css/usuarios/listarUsuarios.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/footer.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div th:insert="~{fragments :: navMenu}"></div>
+
+    <main>
+        <h1 class="titulo">Usuários cadastrados: </h1>
+        <h4 class="subtitulo">Veja a lista de usuários cadastrados ou cadastre outros usuários</h4>
+
+        <form th:action="@{/usuarios/criar}" method="post" th:object="${usuario}">
+            <div class="formulario-usuario">
+                <div>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" th:field="*{nome}" placeholder="Digite o nome" required>
+                </div>
+
+                <div>
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" th:field="*{email}" placeholder="Digite o e-mail" required>
+                </div>
+
+                <div>
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" th:field="*{senha}" placeholder="Digite a senha" required>
+                </div>
+            </div>
+
+            <div class="botao-container">
+                <button type="submit">Cadastrar</button>
+            </div>
+        </form>
+
+        <div class="usuarios-table">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Senha</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.id}"></td>
+                    <td th:text="${usuario.nome}"></td>
+                    <td th:text="${usuario.email}"></td>
+                    <td th:text="${usuario.senha}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${#lists.isEmpty(usuarios)}">
+            <p>Nenhum usuario encontrado.</p>
+        </div>
+    </main>
+
+    <div th:insert="~{fragments :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Listagem de Obras</title>
+    <link rel="stylesheet" th:href="@{/css/baseHtml/header.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/nav.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/body.css}">
+    <link rel="stylesheet" th:href="@{/css/obras/listaObras.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/footer.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div th:insert="~{fragments :: navMenu}"></div>
+
+    <main>
+
+        <!-- Formulário de Cadastro -->
+        <h1 class="titulo">Obras cadastradas</h1>
+        <h4 class="subtitulo">Veja a lista de obras cadastradas ou cadastre uma nova</h4>
+
+        <form th:action="@{/obras}" method="post" th:object="${obra}">
+            <div class="criacaoObra">
+                <div>
+                    <label for="titulo">Título:</label>
+                    <input type="text" id="titulo" th:field="*{titulo}" placeholder="Digite o título da obra" required>
+                </div>
+
+                <div>
+                    <label for="genero">Gênero:</label>
+                    <input type="text" id="genero" th:field="*{genero}" placeholder="Digite o gênero da obra" required>
+                </div>
+
+                <div>
+                    <label for="ano">Ano de Lançamento:</label>
+                    <input type="text" id="ano" th:field="*{ano}" placeholder="Digite o ano de lançamento" required>
+                </div>
+
+                <div>
+                    <label for="diretor">Diretor:</label>
+                    <input type="text" id="diretor" th:field="*{diretor}" placeholder="Digite o nome do diretor" required>
+                </div>
+
+                <div>
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo" th:field="*{tipo}" required>
+                        <option value="">Selecione o tipo</option>
+                        <option value="Filme">Filme</option>
+                        <option value="Série">Série</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="botao-container">
+                <button class="cadastrar-obra" type="submit">Salvar Obra</button>
+            </div>
+        </form>
+
+        <!-- Tabela de Obras -->
+        <div class="obras-table">
+            <table>
+                <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Gênero</th>
+                    <th>Ano de Lançamento</th>
+                    <th>Diretor</th>
+                    <th>Tipo</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="obra : ${obras}">
+                    <td th:text="${obra.titulo}"></td>
+                    <td th:text="${obra.genero}"></td>
+                    <td th:text="${obra.ano}"></td>
+                    <td th:text="${obra.diretor}"></td>
+                    <td th:text="${obra.tipo}"></td>
+                    <td>
+                        <form th:action="@{/obras/{id}/remover(id=${obra.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir esta obra?');">
+                            <button class="excluir-obra" type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${#lists.isEmpty(obras)}">
+            <p>Nenhuma obra encontrada.</p>
+        </div>
+    </main>
+
+    <div th:insert="~{fragments :: footer}"></div>
+
+</body>
+</html>

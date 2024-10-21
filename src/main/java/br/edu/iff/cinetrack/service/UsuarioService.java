@@ -4,7 +4,8 @@ import br.edu.iff.cinetrack.entities.DiarioItem;
 import br.edu.iff.cinetrack.entities.ListaPersonalizada;
 import br.edu.iff.cinetrack.entities.Obra;
 import br.edu.iff.cinetrack.entities.Usuario;
-import br.edu.iff.cinetrack.exceptions.UserNotFoundException;
+import br.edu.iff.cinetrack.exceptions.usuario.UserNotFoundByIdException;
+import br.edu.iff.cinetrack.exceptions.usuario.UserNotFoundByNameException;
 import br.edu.iff.cinetrack.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,10 @@ public class UsuarioService {
         this.listaPersonalizadaService = listaPersonalizadaService;
     }
 
+    public List<Usuario> buscarTodos() {
+        return usuarioRepository.findAll();
+    }
+
     public Usuario criarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
@@ -31,19 +36,19 @@ public class UsuarioService {
     public void deletarUsuario(UUID id) {
         
         if (!usuarioRepository.existsById(id)) {
-            throw new RuntimeException("Usuário não localizado para o ID: " + id);
+            throw new UserNotFoundByIdException(id);
         }
         usuarioRepository.deleteById(id);
     }
 
     public Usuario buscarPorId(UUID id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
+                .orElseThrow(() -> new UserNotFoundByIdException(id));
     }
 
     public Usuario buscarPorNome(String nome) {
         return usuarioRepository.buscarPorNome(nome)
-                .orElseThrow(() -> new RuntimeException("Usuário não localizado para o nome: " + nome));
+                .orElseThrow(() -> new UserNotFoundByNameException(nome));
     }
 
     public List<DiarioItem> buscarDiarioDoUsuario(UUID usuarioId) {

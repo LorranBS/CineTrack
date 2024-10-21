@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listas Personalizadas</title>
+    <link rel="stylesheet" th:href="@{/css/baseHtml/header.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/nav.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/body.css}">
+    <link rel="stylesheet" th:href="@{/css/listas/listas.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/footer.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="fragments.html :: navMenu"></div>
+
+<main>
+    <h1 class="titulo" th:text="'Lista: ' + ${lista.nome}">Nome da Lista</h1>
+    <h4 class="subtitulo">Adicionar Obra à Lista</h4>
+
+    <!-- Formulário para adicionar obra -->
+    <form th:action="@{/listas/adicionar-obra/{listaId}(listaId=${lista.id})}" method="post">
+        <div class="formulario-listas">
+            <div>
+                <label for="obra">Selecione uma obra:</label>
+                <select id="obra" name="obraId" required>
+                    <option th:each="obra : ${obras}" th:value="${obra.id}" th:text="${obra.titulo}">Obra</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="botao-container">
+            <button type="submit">Adicionar Obra</button>
+        </div>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Título da Obra</th>
+            <th>Gênero</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="obra : ${lista.obras}">
+            <td th:text="${obra.titulo}">Título da Obra</td>
+            <td th:text="${obra.genero}">Gênero</td>
+            <td>
+                <form th:action="@{/listas/remover-obra/{listaId}/{obraId}(listaId=${lista.id}, obraId=${obra.id})}" method="post" style="display:inline;">
+                    <button type="submit">Remover</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</main>
+
+<div th:replace="fragments.html :: footer"></div>
+</body>
+</html>

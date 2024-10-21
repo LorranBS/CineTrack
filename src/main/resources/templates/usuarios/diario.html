@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Diário do usuário</title>
+    <link rel="stylesheet" th:href="@{/css/baseHtml/header.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/nav.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/body.css}">
+    <link rel="stylesheet" th:href="@{/css/usuarios/diario.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/footer.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div th:insert="~{fragments :: navMenu}"></div>
+
+    <main>
+        <h1 class="titulo">Diário de usuário: </h1>
+        <h4 class="subtitulo">Veja o seu diário e cadastre novos itens</h4>
+
+        <form th:action="@{/usuarios/{id}/diario(id=${usuarioId})}" method="post" th:object="${diarioItem}">
+            <div class="formulario-diario">
+                <div>
+                    <label for="obra">Selecione a Obra:</label>
+                    <select required id="obra" th:field="*{obra.id}">
+                        <option th:each="obra : ${obras}" th:value="${obra.id}" th:text="${obra.titulo}"></option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="avaliacao">Avaliação:</label>
+                    <input required type="number" id="avaliacao" th:field="*{avaliacao}" min="0" max="10" step="0.1"/>
+                </div>
+
+                <div>
+                    <label for="dataAssistida">Data Assistida:</label>
+                    <input required type="date" id="dataAssistida" th:field="*{dataAssistida}"/>
+                </div>
+
+                <div>
+                    <label for="comentario">Comentário:</label>
+                    <textarea required id="comentario" th:field="*{comentario}"></textarea>
+                </div>
+            </div>
+
+            <div class="botao-container">
+                <button type="submit">Adicionar ao Diário</button>
+            </div>
+        </form>
+
+        <div th:if="${#lists.isEmpty(diario)}">
+            <p>Nenhum item encontrado no diário.</p>
+        </div>
+
+        <table th:if="${not #lists.isEmpty(diario)}">
+            <thead>
+            <tr>
+                <th>Título</th>
+                <th>Data Assistida</th>
+                <th>Nota</th>
+                <th>Comentário</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${diario}">
+                <td th:text="${item.obra.titulo}"></td>
+                <td th:text="${item.dataAssistida}"></td>
+                <td th:text="${item.avaliacao}"></td>
+                <td th:text="${item.comentario}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </main>
+
+    <div th:insert="~{fragments :: footer}"></div>
+</body>
+</html>

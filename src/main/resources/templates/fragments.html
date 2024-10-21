@@ -1,0 +1,44 @@
+<!-- src/main/resources/templates/fragments.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fragmentos</title>
+</head>
+<body>
+
+<!-- Fragmento de Navegação -->
+<div th:fragment="navMenu">
+    <nav>
+        <ul>
+            <li><a href="/obras">Início</a></li>
+            <li><a href="#" onclick="abrirDiario()">Diário</a></li>
+            <li><a href="#" onclick="abrirListasPersonalizadas()">Lista Personalizada</a></li>
+            <li><a href="/usuarios">Usuários</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        function abrirDiario() {
+            const usuarioId = prompt("Digite o ID do usuário:");
+            if (usuarioId) {
+                window.location.href = `/usuarios/${usuarioId}/diario`;
+            }
+        }
+
+        function abrirListasPersonalizadas() {
+            const usuarioId = prompt("Digite o ID do usuário:");
+            if (usuarioId) {
+                window.location.href = `/listas/usuario/${usuarioId}`;
+            }
+        }
+    </script>
+</div>
+
+<div th:fragment="footer">
+    <footer>
+        <p>&copy; 2024 Listagem de Obras. Todos os direitos reservados.</p>
+    </footer>
+</div>
+
+</body>
+</html>
