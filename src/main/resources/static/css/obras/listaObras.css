@@ -15,6 +15,50 @@ input[type="search"] {
     margin: 10px 0px 10px 0px;
 }
 
+.criacaoObra {
+    display: flex;
+}
+
+
+form input {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #333;
+    border-radius: 20px;
+    width: 100%;
+    outline: none;
+    margin: 10px 0px 10px 0px;
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #333;
+    border-radius: 20px;
+    width: 100%;
+    outline: none;
+    margin: 10px 0px 10px 0px; 
+}
+
+.botao-container {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+}
+
+button {
+    width: 20%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;

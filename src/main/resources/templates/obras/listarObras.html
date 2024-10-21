@@ -12,11 +12,6 @@
     <link rel="stylesheet" th:href="@{/css/baseHtml/footer.css}">
 </head>
 <body>
-
-<!-- <header>
-    <h1>Listagem de Obras</h1>
-</header> -->
-
 <nav>
     <ul>
         <li><a href="#">Início</a></li>
@@ -30,6 +25,43 @@
     <h2>Pesquise sobre um filme ou série</h2>
     <form th:action="@{/buscar}" method="GET">
         <input type="search" name="pesquisa" placeholder="Pesquise por um filme ou série...">
+    </form>
+    <form th:action="@{/obras}" method="post" th:object="${obra}">
+        <div class="criacaoObra">
+            <div>
+                <label for="titulo">Título:</label>
+                <!-- <input type="text" name="" id=""> -->
+                <input type="text" id="titulo" placeholder="Digite o título da obra" required>
+            </div>
+    
+            <div>
+                <label for="genero">Gênero:</label>
+                <input type="text" id="genero" placeholder="Digite o gênero da obra" required>
+            </div>
+    
+            <div>
+                <label for="ano">Ano de Lançamento:</label>
+                <input type="text" id="ano" placeholder="Digite o ano de lançamento" required>
+            </div>
+    
+            <div>
+                <label for="diretor">Diretor:</label>
+                <input type="text" id="diretor" placeholder="Digite o nome do diretor" required>
+            </div>
+    
+            <div>
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" required>
+                    <option value="">Selecione o tipo</option>
+                    <option value="Filme">Filme</option>
+                    <option value="Série">Série</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="botao-container">
+            <button type="submit">Salvar Obra</button>
+        </div>
     </form>
     <div>
         <table>
