@@ -25,6 +25,7 @@ public class ObraViewController {
     public String listarObras(Model model) {
         List<Obra> obras = obraService.listarObras();
         model.addAttribute("obras", obras);
+        model.addAttribute("obra", new Obra());
         return "/obras/listarObras";
     }
 

@@ -5,7 +5,7 @@ main {
     margin: 0 auto;
 }
 
-input[type="search"] {
+input {
     padding: 10px;
     font-size: 16px;
     border: 2px solid #333;
@@ -20,7 +20,7 @@ input[type="search"] {
 }
 
 
-form input {
+/* form input {
     padding: 10px;
     font-size: 16px;
     border: 2px solid #333;
@@ -28,7 +28,7 @@ form input {
     width: 100%;
     outline: none;
     margin: 10px 0px 10px 0px;
-}
+} */
 
 select {
     padding: 10px;

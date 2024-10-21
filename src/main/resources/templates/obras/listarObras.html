@@ -17,7 +17,7 @@
         <li><a href="#">Início</a></li>
         <li><a href="#">Assistir mais tarde</a></li>
         <li><a href="#">Diário</a></li>
-        <li><a href="#">Usuários</a></li>
+        <li><a href="/usuarios">Usuários</a></li>
     </ul>
 </nav>
 
@@ -30,23 +30,22 @@
         <div class="criacaoObra">
             <div>
                 <label for="titulo">Título:</label>
-                <!-- <input type="text" name="" id=""> -->
-                <input type="text" id="titulo" placeholder="Digite o título da obra" required>
+                <input type="text" id="titulo" th:field="*{titulo}" placeholder="Digite o título da obra" required>
             </div>
     
             <div>
                 <label for="genero">Gênero:</label>
-                <input type="text" id="genero" placeholder="Digite o gênero da obra" required>
+                <input type="text" id="genero" th:field="*{genero}" placeholder="Digite o gênero da obra" required>
             </div>
     
             <div>
                 <label for="ano">Ano de Lançamento:</label>
-                <input type="text" id="ano" placeholder="Digite o ano de lançamento" required>
+                <input type="text" id="ano" th:field="*{ano}" placeholder="Digite o ano de lançamento" required>
             </div>
     
             <div>
                 <label for="diretor">Diretor:</label>
-                <input type="text" id="diretor" placeholder="Digite o nome do diretor" required>
+                <input type="text" id="diretor" th:field="*{diretor}" placeholder="Digite o nome do diretor" required>
             </div>
     
             <div>
