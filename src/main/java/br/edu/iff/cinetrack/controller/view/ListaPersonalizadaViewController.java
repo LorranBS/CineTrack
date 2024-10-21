@@ -3,6 +3,7 @@ package br.edu.iff.cinetrack.controller.view;
 import br.edu.iff.cinetrack.entities.ListaPersonalizada;
 import br.edu.iff.cinetrack.entities.Obra;
 import br.edu.iff.cinetrack.service.ListaPersonalizadaService;
+import br.edu.iff.cinetrack.service.ObraService;
 import br.edu.iff.cinetrack.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,11 +19,13 @@ public class ListaPersonalizadaViewController {
 
     private final ListaPersonalizadaService listaPersonalizadaService;
     private final UsuarioService usuarioService;
+    private final ObraService obraService;
 
     @Autowired
-    public ListaPersonalizadaViewController(ListaPersonalizadaService listaPersonalizadaService, UsuarioService usuarioService) {
+    public ListaPersonalizadaViewController(ListaPersonalizadaService listaPersonalizadaService, UsuarioService usuarioService, ObraService obraService) {
         this.listaPersonalizadaService = listaPersonalizadaService;
         this.usuarioService = usuarioService;
+        this.obraService = obraService;
     }
 
     // Página para listar as listas personalizadas do usuário
@@ -38,7 +41,9 @@ public class ListaPersonalizadaViewController {
     @GetMapping("/{listaId}")
     public String verListaPersonalizada(@PathVariable("listaId") UUID listaId, Model model) {
         ListaPersonalizada lista = listaPersonalizadaService.buscarPorId(listaId);
+        List<Obra> obras = obraService.listarObras();
         model.addAttribute("lista", lista);
+        model.addAttribute("obras", obras);
         return "listas/detalhes-lista";
     }
 
@@ -58,7 +63,8 @@ public class ListaPersonalizadaViewController {
 
     // Adicionar uma obra à lista personalizada
     @PostMapping("/adicionar-obra/{listaId}")
-    public String adicionarObraNaLista(@PathVariable("listaId") UUID listaId, @ModelAttribute Obra obra) {
+    public String adicionarObraNaLista(@PathVariable("listaId") UUID listaId, @RequestParam("obraId") UUID obraId) {
+        Obra obra = obraService.buscarObraPorId(obraId);
         listaPersonalizadaService.adicionarObraNaLista(listaId, obra);
         return "redirect:/listas/" + listaId;
     }

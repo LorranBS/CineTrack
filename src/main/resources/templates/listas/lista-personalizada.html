@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listas Personalizadas</title>
+    <link rel="stylesheet" th:href="@{/css/baseHtml/header.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/nav.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/body.css}">
+    <link rel="stylesheet" th:href="@{/css/listas/listas.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/footer.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments.html :: navMenu"></div>
+
+<main>
+<h1 class="titulo">Listas Personalizadas de: <span th:text="${usuario.nome}">Nome do Usuário</span></h1>
+<h4 class="subtitulo">Todas as listas personalizadas do usuário</h4>
+
+    <form action="#" th:action="@{/listas/criar}" method="post">
+        <div class="formulario-listas">
+        <input type="hidden" name="usuarioId" th:value="${usuario.id}">
+
+        <div>
+            <label for="nomeLista">Nome da Lista:</label>
+            <input type="text" id="nomeLista" name="nome" required>
+        </div>
+
+        <div>
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao" required>
+        </div>
+
+        <div>
+            <label for="imagemCapa">Imagem de Capa:</label>
+            <input type="text" id="imagemCapa" name="imagemCapa" required>
+        </div>
+        </div>
+
+        <div class="botao-container">
+            <button type="submit">Criar Lista</button>
+        </div>
+    </form>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Imagem de Capa</th>
+            <th>Nome da Lista</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lista : ${listas}">
+            <td><img th:src="${lista.imagemCapa}" alt="Capa da Lista" style="width: 100px; height: auto;"></td>
+            <td th:text="${lista.nome}">Nome da Lista</td>
+            <td th:text="${lista.descricao}">Descrição</td>
+            <td>
+                <a th:href="@{/listas/{listaId}(listaId=${lista.id})}">
+                    <button>Ver Detalhes</button>
+                </a>
+                <form th:action="@{/listas/deletar/{listaId}(listaId=${lista.id})}" method="post" style="display:inline;">
+                    <input type="hidden" name="usuarioId" th:value="${usuario.id}">
+                    <button type="submit">Deletar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</main>
+
+<div th:replace="fragments.html :: footer"></div>
+</body>
+</html>
