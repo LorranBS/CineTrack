@@ -33,7 +33,7 @@
             <div>
                 <h3>Usuário</h3>
                 <form th:action="@{/buscar}" method="GET">
-                    <input type="search" name="pesquisaUsuarios" placeholder="Digite o usuários...">
+                    <input type="search" name="pesquisaEmail" placeholder="Digite o e-mail...">
                 </form>
             </div>
             <div>
@@ -49,23 +49,21 @@
                 <thead>
                 <tr>
                     <th>Nome</th>
-                    <th>Usuário</th>
-                    <th>Data de criação</th>
+                    <th>e-mail</th>
                     <th>Senha</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="usuario : ${usuario}">
                     <td th:text="${usuario.nome}"></td>
-                    <td th:text="${usuario.usuario}"></td>
-                    <!-- <td th:text="${usuario.ano}"></td> -->
+                    <td th:text="${usuario.email}"></td>
                     <td th:text="${usuario.senha}"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
-        <div th:if="${#lists.isEmpty(usuario)}">
+        <div th:if="${#lists.isEmpty(usuarios)}">
             <p>Nenhum usuario encontrado.</p>
         </div>
     </main>
