@@ -82,4 +82,9 @@ public class ObraService {
         }
         return obras;
     }
+
+    public Obra buscarObraPorId(UUID id) {
+        return obraRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Obra não encontrada para o ID: " + id));
+    }
 }

@@ -1,6 +1,8 @@
 package br.edu.iff.cinetrack.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -18,7 +20,8 @@ public class DiarioItem {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Size(min=1, max=10)
+    @Min(0)
+    @Max(10)
     @Positive
     private float avaliacao;
 

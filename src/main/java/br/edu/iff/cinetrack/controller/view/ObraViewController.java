@@ -29,9 +29,9 @@ public class ObraViewController {
         return "/obras/listarObras";
     }
 
-    @GetMapping("/{id}")
-    public String exibirObra(@PathVariable UUID id, Model model) {
-        Obra obra = obraService.buscarPorTitulo(id.toString());
+    @GetMapping("/{name}")
+    public String exibirObra(@PathVariable String name, Model model) {
+        Obra obra = obraService.buscarPorTitulo(name);
         model.addAttribute("obra", obra);
         return "exibirObra";
     }

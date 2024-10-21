@@ -33,7 +33,7 @@ public class Obra {
     @NotBlank(message = "O tipo (filme ou série) é obrigatório")
     private String tipo;
 
-    @OneToMany(mappedBy = "obra")
+    @OneToMany(mappedBy = "obra", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DiarioItem> diarioItems;
 
     @ManyToMany(mappedBy = "obras")
