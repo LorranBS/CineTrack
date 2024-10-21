@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lista Usuários</title>
+    <link rel="stylesheet" th:href="@{/css/baseHtml/header.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/nav.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/body.css}">
+    <link rel="stylesheet" th:href="@{/css/usuarios/listarUsuarios.css}">
+    <link rel="stylesheet" th:href="@{/css/baseHtml/footer.css}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Assistir mais tarde</a></li>
+            <li><a href="#">Diário</a></li>
+            <li><a href="#">Usuários</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Usuários cadastrados</h2>
+        <h3>Veja a lista dos usuários cadastrados e cadastre outros suários</h3>
+        <div class="buscaUsuarios">
+            <div>
+                <h3>Nome</h3>
+                <form th:action="@{/buscar}" method="GET">
+                    <input type="search" name="pesquisaNome" placeholder="Digite o nome...">
+                </form>
+            </div>
+            <div>
+                <h3>Usuário</h3>
+                <form th:action="@{/buscar}" method="GET">
+                    <input type="search" name="pesquisaUsuarios" placeholder="Digite o usuários...">
+                </form>
+            </div>
+            <div>
+                <h3>Senha</h3>
+                <form th:action="@{/buscar}" method="GET">
+                    <input type="search" name="pesquisaSenha" placeholder="Digite a senha...">
+                </form>
+            </div>
+        </div>
+        <div> 
+            <!-- Confirmar ainda -->
+            <table>
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Usuário</th>
+                    <th>Data de criação</th>
+                    <th>Senha</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="usuario : ${usuario}">
+                    <td th:text="${usuario.nome}"></td>
+                    <td th:text="${usuario.usuario}"></td>
+                    <!-- <td th:text="${usuario.ano}"></td> -->
+                    <td th:text="${usuario.senha}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${#lists.isEmpty(usuario)}">
+            <p>Nenhum usuario encontrado.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Listagem de Obras. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

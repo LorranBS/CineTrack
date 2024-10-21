@@ -1,0 +1,38 @@
+main {
+    flex-grow: 1;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.buscaUsuarios{
+    display: flex;
+}
+input[type="search"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #333;
+    border-radius: 20px;
+    width: 100%;
+    outline: none;
+    margin: 10px 0px 10px 0px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    color: white;
+}

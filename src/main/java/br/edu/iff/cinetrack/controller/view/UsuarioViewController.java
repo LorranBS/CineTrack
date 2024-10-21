@@ -27,7 +27,7 @@ public class UsuarioViewController {
     public String listarUsuarios(Model model) {
         List<Usuario> usuarios = usuarioService.buscarTodos();
         model.addAttribute("usuarios", usuarios);
-        return "usuarios/listar"; // Nome do template Thymeleaf
+        return "usuarios/listarUsuarios"; // Nome do template Thymeleaf
     }
 
     // Criar um novo usuário
